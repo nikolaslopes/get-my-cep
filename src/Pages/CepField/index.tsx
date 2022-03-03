@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 import { InputField } from '../../components/InputField';
 import { Button } from '../../components/Button';
+import { toast } from 'react-toastify';
 
 export function CepField() {
   const [cep, setCep] = useState('');
@@ -12,25 +13,47 @@ export function CepField() {
   const [location, setLocalion] = useState('');
   const [ddd, setDdd] = useState('');
 
-  fetch(`https://viacep.com.br/ws/${cep}/json/`)
-    .then((response) => {
-      if (response.status !== 200) {
-        console.log('erro ao buscar cep');
-      } else {
-        return response.json();
-      }
-    })
-    .then((data) => {
-      if (data.erro) {
-        console.log('cep não encontrado');
-      } else {
-        setStreet(data.logradouro);
-        setNeighborhood(data.bairro);
-        setUf(data.uf);
-        setLocalion(data.localidade);
-        setDdd(data.ddd);
-      }
-    });
+  function getCep() {
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+      .then((response) => {
+        if (response.status !== 200) {
+          toast.error('Erro ao buscar Cep!', {
+            toastId: 'TOAST_ERROR_MESSAGE',
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            theme: 'dark',
+            draggable: true,
+            progress: undefined,
+          });
+        } else {
+          return response.json();
+        }
+      })
+      .then((data) => {
+        if (data.erro) {
+        } else {
+          toast.success('Cep encontrado!', {
+            toastId: 'TOAST_ERROR_MESSAGE',
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            theme: 'dark',
+            draggable: true,
+            progress: undefined,
+          });
+          setStreet(data.logradouro);
+          setNeighborhood(data.bairro);
+          setUf(data.uf);
+          setLocalion(data.localidade);
+          setDdd(data.ddd);
+        }
+      });
+  }
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     setCep(event.target.value);
@@ -57,6 +80,7 @@ export function CepField() {
           autoComplete="off"
           value={cep}
           onChange={handleInputChange}
+          onBlur={getCep}
         />
       </Header>
 

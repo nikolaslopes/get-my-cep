@@ -4,7 +4,6 @@ export const Container = styled.div`
   width: 500px;
   height: 700px;
   padding: 20px;
-  border: 1px solid blue;
 
   display: flex;
   align-items: center;
@@ -46,6 +45,4 @@ export const Content = styled.div`
   div + div {
     margin-top: 22px;
   }
-
-  border: 2px solid blue;
 `;
