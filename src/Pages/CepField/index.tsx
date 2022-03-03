@@ -1,11 +1,18 @@
 import { Container, Header, Content } from './styles';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import { InputField } from '../../components/InputField';
 import { Button } from '../../components/Button';
 
-export function GetCep() {
-  fetch('https://viacep.com.br/ws/27949-316/json/')
+export function CepField() {
+  const [cep, setCep] = useState('');
+  const [street, setStreet] = useState('');
+  const [neighborhood, setNeighborhood] = useState('');
+  const [uf, setUf] = useState('');
+  const [location, setLocalion] = useState('');
+  const [ddd, setDdd] = useState('');
+
+  fetch(`https://viacep.com.br/ws/${cep}/json/`)
     .then((response) => {
       if (response.status !== 200) {
         console.log('erro ao buscar cep');
@@ -25,11 +32,18 @@ export function GetCep() {
       }
     });
 
-  const [street, setStreet] = useState('');
-  const [neighborhood, setNeighborhood] = useState('');
-  const [uf, setUf] = useState('');
-  const [location, setLocalion] = useState('');
-  const [ddd, setDdd] = useState('');
+  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setCep(event.target.value);
+  }
+
+  function clearStateFields() {
+    setCep('');
+    setStreet('');
+    setNeighborhood('');
+    setUf('');
+    setLocalion('');
+    setDdd('');
+  }
 
   return (
     <Container>
@@ -40,10 +54,10 @@ export function GetCep() {
           name="cep"
           placeholder="Digite seu CEP"
           maxLength={10}
-          autoComplete="no"
+          autoComplete="off"
+          value={cep}
+          onChange={handleInputChange}
         />
-
-        <Button label="Buscar meu Cep!" />
       </Header>
 
       <Content>
@@ -52,6 +66,8 @@ export function GetCep() {
         <InputField placeholder="UF" disabled={true} value={uf} />
         <InputField placeholder="Localidade" disabled={true} value={location} />
         <InputField placeholder="DDD" disabled={true} value={ddd} />
+
+        <Button label="Limpar campos!" onClick={clearStateFields} />
       </Content>
     </Container>
   );
