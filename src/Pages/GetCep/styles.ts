@@ -11,8 +11,36 @@ export const Container = styled.div`
   flex-direction: column;
 `;
 
-export const Header = styled.header``;
+export const Header = styled.header`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  h1 {
+    color: ${({ theme }) => theme.colors.primary.light};
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  input {
+    width: 465px;
+  }
+`;
 
 export const Content = styled.div`
   margin-top: 56px;
+  padding: 20px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  div + div {
+    margin-top: 22px;
+  }
+
+  border: 2px solid blue;
 `;
