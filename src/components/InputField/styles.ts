@@ -13,6 +13,10 @@ export const Container = styled.div`
     color: #fefefe;
     transition: all 0.2s ease;
 
+    &.extra-width {
+      width: 446px;
+    }
+
     &:hover {
       border-color: ${({ theme }) => theme.colors.primary.lighter};
     }

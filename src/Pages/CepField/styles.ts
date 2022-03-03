@@ -25,11 +25,6 @@ export const Header = styled.header`
   input {
     width: 465px;
   }
-
-  button {
-    width: 256px;
-    margin-top: 22px;
-  }
 `;
 
 export const Content = styled.div`

@@ -81,6 +81,7 @@ export function CepField() {
           value={cep}
           onChange={handleInputChange}
           onBlur={getCep}
+          className="extra-width"
         />
       </Header>
 
