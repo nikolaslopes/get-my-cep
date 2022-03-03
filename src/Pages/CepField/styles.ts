@@ -22,6 +22,15 @@ export const Header = styled.header`
     margin-bottom: 32px;
   }
 
+  small {
+    display: flex;
+    align-self: flex-start;
+    font-size: 12px;
+    margin-left: 6px;
+    margin-top: 10px;
+    color: #f63131;
+  }
+
   input {
     width: 465px;
   }

@@ -13,6 +13,8 @@ export function CepField() {
   const [location, setLocalion] = useState('');
   const [ddd, setDdd] = useState('');
 
+  const [cepErrorMessage, setErrorMessage] = useState(false);
+
   function getCep() {
     fetch(`https://viacep.com.br/ws/${cep}/json/`)
       .then((response) => {
@@ -72,13 +74,15 @@ export function CepField() {
           type="text"
           name="cep"
           placeholder="Digite seu CEP"
-          maxLength={10}
+          maxLength={9}
           autoComplete="off"
           value={cep}
           onChange={handleInputChange}
           onBlur={getCep}
           className="extra-width"
         />
+
+        {cepErrorMessage ? <small>Cep inválido!</small> : ''}
       </Header>
 
       <Content>
