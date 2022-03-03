@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ContainerButton = styled.div`
   button {
@@ -7,10 +7,11 @@ export const ContainerButton = styled.div`
 
     background-color: ${({ theme }) => theme.colors.primary.main};
     color: #fff;
-    border: 2px solid #fff;
+    border: 0;
     border-radius: 8px;
 
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
 
     transition: all 0.2s ease;

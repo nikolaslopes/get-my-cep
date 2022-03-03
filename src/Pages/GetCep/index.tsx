@@ -2,6 +2,7 @@ import { Container, Header, Content } from './styles';
 import { useState } from 'react';
 
 import { InputField } from '../../components/InputField';
+import { Button } from '../../components/Button';
 
 export function GetCep() {
   fetch('https://viacep.com.br/ws/27949-316/json/')
@@ -41,6 +42,8 @@ export function GetCep() {
           maxLength={10}
           autoComplete="no"
         />
+
+        <Button label="Buscar meu Cep!" />
       </Header>
 
       <Content>
