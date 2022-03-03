@@ -16,43 +16,39 @@ export function CepField() {
   function getCep() {
     fetch(`https://viacep.com.br/ws/${cep}/json/`)
       .then((response) => {
-        if (response.status !== 200) {
-          toast.error('Erro ao buscar Cep!', {
-            toastId: 'TOAST_ERROR_MESSAGE',
-            position: 'top-right',
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            theme: 'dark',
-            draggable: true,
-            progress: undefined,
-          });
-        } else {
-          return response.json();
-        }
+        return response.json();
       })
       .then((data) => {
-        if (data.erro) {
-        } else {
-          toast.success('Cep encontrado!', {
-            toastId: 'TOAST_ERROR_MESSAGE',
-            position: 'top-right',
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            theme: 'dark',
-            draggable: true,
-            progress: undefined,
-          });
-          setStreet(data.logradouro);
-          setNeighborhood(data.bairro);
-          setUf(data.uf);
-          setLocalion(data.localidade);
-          setDdd(data.ddd);
-        }
-      });
+        toast.success('Cep encontrado!', {
+          toastId: 'TOAST_ERROR_MESSAGE',
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          theme: 'dark',
+          draggable: true,
+          progress: undefined,
+        });
+        setStreet(data.logradouro);
+        setNeighborhood(data.bairro);
+        setUf(data.uf);
+        setLocalion(data.localidade);
+        setDdd(data.ddd);
+      })
+      .catch(() =>
+        toast.error('Erro ao buscar Cep!', {
+          toastId: 'TOAST_ERROR_MESSAGE',
+          position: 'top-right',
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          theme: 'dark',
+          draggable: true,
+          progress: undefined,
+        }),
+      );
   }
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -86,13 +82,25 @@ export function CepField() {
       </Header>
 
       <Content>
-        <InputField placeholder="Rua" disabled={true} value={street} />
-        <InputField placeholder="Bairro" disabled={true} value={neighborhood} />
-        <InputField placeholder="UF" disabled={true} value={uf} />
-        <InputField placeholder="Localidade" disabled={true} value={location} />
-        <InputField placeholder="DDD" disabled={true} value={ddd} />
+        {street && (
+          <>
+            <InputField placeholder="Rua" disabled={true} value={street} />
+            <InputField
+              placeholder="Bairro"
+              disabled={true}
+              value={neighborhood}
+            />
+            <InputField placeholder="UF" disabled={true} value={uf} />
+            <InputField
+              placeholder="Localidade"
+              disabled={true}
+              value={location}
+            />
+            <InputField placeholder="DDD" disabled={true} value={ddd} />
 
-        <Button label="Limpar campos!" onClick={clearStateFields} />
+            <Button label="Limpar campos!" onClick={clearStateFields} />
+          </>
+        )}
       </Content>
     </Container>
   );
